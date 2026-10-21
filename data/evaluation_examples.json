@@ -1,0 +1,600 @@
+[
+  {
+    "doc_id": 9001,
+    "original_id": "eval-001",
+    "title": "President Obama Visits Berlin for NATO Summit",
+    "body": "President Obama arrived in Berlin on 5 March 2024 for the NATO Summit. Obama met with Chancellor Scholz at the Berlin Congress Center.",
+    "combined_text": "President Obama Visits Berlin for NATO Summit\n\nPresident Obama arrived in Berlin on 5 March 2024 for the NATO Summit. Obama met with Chancellor Scholz at the Berlin Congress Center.",
+    "language": "en",
+    "entities": [
+      {
+        "text": "Obama",
+        "label": "PERSON",
+        "start": 10,
+        "end": 15
+      },
+      {
+        "text": "Berlin",
+        "label": "GPE",
+        "start": 23,
+        "end": 29
+      },
+      {
+        "text": "NATO Summit",
+        "label": "EVENT",
+        "start": 34,
+        "end": 45
+      },
+      {
+        "text": "Obama",
+        "label": "PERSON",
+        "start": 57,
+        "end": 62
+      },
+      {
+        "text": "Berlin",
+        "label": "GPE",
+        "start": 74,
+        "end": 80
+      },
+      {
+        "text": "5 March 2024",
+        "label": "DATE",
+        "start": 84,
+        "end": 96
+      },
+      {
+        "text": "NATO Summit",
+        "label": "EVENT",
+        "start": 105,
+        "end": 116
+      },
+      {
+        "text": "Obama",
+        "label": "PERSON",
+        "start": 118,
+        "end": 123
+      },
+      {
+        "text": "Scholz",
+        "label": "PERSON",
+        "start": 144,
+        "end": 150
+      },
+      {
+        "text": "Berlin",
+        "label": "GPE",
+        "start": 158,
+        "end": 164
+      }
+    ]
+  },
+  {
+    "doc_id": 9002,
+    "original_id": "eval-002",
+    "title": "Dr. Ahmad's Keynote at UNESCO Forum 2024",
+    "body": "Dr. Ahmad's presentation at the UNESCO Forum in Geneva covered climate policy reforms on 22 April 2024. Ahmad received a standing ovation.",
+    "combined_text": "Dr. Ahmad's Keynote at UNESCO Forum 2024\n\nDr. Ahmad's presentation at the UNESCO Forum in Geneva covered climate policy reforms on 22 April 2024. Ahmad received a standing ovation.",
+    "language": "en",
+    "entities": [
+      {
+        "text": "Dr. Ahmad's",
+        "label": "PERSON",
+        "start": 0,
+        "end": 11
+      },
+      {
+        "text": "UNESCO Forum",
+        "label": "EVENT",
+        "start": 23,
+        "end": 35
+      },
+      {
+        "text": "Dr. Ahmad's",
+        "label": "PERSON",
+        "start": 42,
+        "end": 53
+      },
+      {
+        "text": "UNESCO Forum",
+        "label": "EVENT",
+        "start": 74,
+        "end": 86
+      },
+      {
+        "text": "Geneva",
+        "label": "GPE",
+        "start": 90,
+        "end": 96
+      },
+      {
+        "text": "22 April 2024",
+        "label": "DATE",
+        "start": 131,
+        "end": 144
+      },
+      {
+        "text": "Ahmad",
+        "label": "PERSON",
+        "start": 146,
+        "end": 151
+      }
+    ]
+  },
+  {
+    "doc_id": 9003,
+    "original_id": "eval-003",
+    "title": "Trade Talks Between Washington and St. Petersburg",
+    "body": "Officials from Washington and St. Petersburg met on 10 June 2024 to discuss bilateral trade. The World Trade Organization facilitated the talks.",
+    "combined_text": "Trade Talks Between Washington and St. Petersburg\n\nOfficials from Washington and St. Petersburg met on 10 June 2024 to discuss bilateral trade. The World Trade Organization facilitated the talks.",
+    "language": "en",
+    "entities": [
+      {
+        "text": "Washington",
+        "label": "GPE",
+        "start": 20,
+        "end": 30
+      },
+      {
+        "text": "St. Petersburg",
+        "label": "GPE",
+        "start": 35,
+        "end": 49
+      },
+      {
+        "text": "Washington",
+        "label": "GPE",
+        "start": 66,
+        "end": 76
+      },
+      {
+        "text": "St. Petersburg",
+        "label": "GPE",
+        "start": 81,
+        "end": 95
+      },
+      {
+        "text": "10 June 2024",
+        "label": "DATE",
+        "start": 103,
+        "end": 115
+      },
+      {
+        "text": "World Trade Organization",
+        "label": "ORG",
+        "start": 148,
+        "end": 172
+      }
+    ]
+  },
+  {
+    "doc_id": 9004,
+    "original_id": "eval-004",
+    "title": "How to Improve Your Daily Productivity",
+    "body": "Staying productive requires discipline and focus. Start your morning with a clear plan and avoid unnecessary distractions throughout the day.",
+    "combined_text": "How to Improve Your Daily Productivity\n\nStaying productive requires discipline and focus. Start your morning with a clear plan and avoid unnecessary distractions throughout the day.",
+    "language": "en",
+    "entities": []
+  },
+  {
+    "doc_id": 9005,
+    "original_id": "eval-005",
+    "title": "Ahmad Zahri v AIMS Cyberjaya: Landmark Ruling",
+    "body": "The Federal Court ruled on 3 September 2024 in the case of Ahmad Zahri against AIMS Cyberjaya Sdn Bhd. Judge Tan Sri Azahar Mohamed delivered the verdict in Putrajaya.",
+    "combined_text": "Ahmad Zahri v AIMS Cyberjaya: Landmark Ruling\n\nThe Federal Court ruled on 3 September 2024 in the case of Ahmad Zahri against AIMS Cyberjaya Sdn Bhd. Judge Tan Sri Azahar Mohamed delivered the verdict in Putrajaya.",
+    "language": "en",
+    "entities": [
+      {
+        "text": "Ahmad Zahri",
+        "label": "PERSON",
+        "start": 0,
+        "end": 11
+      },
+      {
+        "text": "AIMS Cyberjaya",
+        "label": "ORG",
+        "start": 14,
+        "end": 28
+      },
+      {
+        "text": "Federal Court",
+        "label": "ORG",
+        "start": 51,
+        "end": 64
+      },
+      {
+        "text": "3 September 2024",
+        "label": "DATE",
+        "start": 74,
+        "end": 90
+      },
+      {
+        "text": "Ahmad Zahri",
+        "label": "PERSON",
+        "start": 106,
+        "end": 117
+      },
+      {
+        "text": "AIMS Cyberjaya Sdn Bhd",
+        "label": "ORG",
+        "start": 126,
+        "end": 148
+      },
+      {
+        "text": "Tan Sri Azahar Mohamed",
+        "label": "PERSON",
+        "start": 156,
+        "end": 178
+      },
+      {
+        "text": "Putrajaya",
+        "label": "GPE",
+        "start": 204,
+        "end": 213
+      }
+    ]
+  },
+  {
+    "doc_id": 9006,
+    "original_id": "eval-006",
+    "title": "Google and Microsoft Compete at CES 2025",
+    "body": "Google unveiled its new AI chip at CES 2025 in Las Vegas on 7 January 2025. Microsoft responded with a live demo. Both companies plan to present again at Mobile World Congress in Barcelona.",
+    "combined_text": "Google and Microsoft Compete at CES 2025\n\nGoogle unveiled its new AI chip at CES 2025 in Las Vegas on 7 January 2025. Microsoft responded with a live demo. Both companies plan to present again at Mobile World Congress in Barcelona.",
+    "language": "en",
+    "entities": [
+      {
+        "text": "Google",
+        "label": "ORG",
+        "start": 0,
+        "end": 6
+      },
+      {
+        "text": "Microsoft",
+        "label": "ORG",
+        "start": 11,
+        "end": 20
+      },
+      {
+        "text": "CES 2025",
+        "label": "EVENT",
+        "start": 32,
+        "end": 40
+      },
+      {
+        "text": "Google",
+        "label": "ORG",
+        "start": 42,
+        "end": 48
+      },
+      {
+        "text": "CES 2025",
+        "label": "EVENT",
+        "start": 77,
+        "end": 85
+      },
+      {
+        "text": "Las Vegas",
+        "label": "GPE",
+        "start": 89,
+        "end": 98
+      },
+      {
+        "text": "7 January 2025",
+        "label": "DATE",
+        "start": 102,
+        "end": 116
+      },
+      {
+        "text": "Microsoft",
+        "label": "ORG",
+        "start": 118,
+        "end": 127
+      },
+      {
+        "text": "Mobile World Congress",
+        "label": "EVENT",
+        "start": 196,
+        "end": 217
+      },
+      {
+        "text": "Barcelona",
+        "label": "GPE",
+        "start": 221,
+        "end": 230
+      }
+    ]
+  },
+  {
+    "doc_id": 9007,
+    "original_id": "eval-007",
+    "title": "Elon Musk and Jeff Bezos Meet on 15 August 2025",
+    "body": "Elon Musk and Jeff Bezos held a private meeting in New York on 15 August 2025. The two billionaires last met on 3 March 2023 at a SpaceX launch event.",
+    "combined_text": "Elon Musk and Jeff Bezos Meet on 15 August 2025\n\nElon Musk and Jeff Bezos held a private meeting in New York on 15 August 2025. The two billionaires last met on 3 March 2023 at a SpaceX launch event.",
+    "language": "en",
+    "entities": [
+      {
+        "text": "Elon Musk",
+        "label": "PERSON",
+        "start": 0,
+        "end": 9
+      },
+      {
+        "text": "Jeff Bezos",
+        "label": "PERSON",
+        "start": 14,
+        "end": 24
+      },
+      {
+        "text": "15 August 2025",
+        "label": "DATE",
+        "start": 33,
+        "end": 47
+      },
+      {
+        "text": "Elon Musk",
+        "label": "PERSON",
+        "start": 49,
+        "end": 58
+      },
+      {
+        "text": "Jeff Bezos",
+        "label": "PERSON",
+        "start": 63,
+        "end": 73
+      },
+      {
+        "text": "New York",
+        "label": "GPE",
+        "start": 100,
+        "end": 108
+      },
+      {
+        "text": "15 August 2025",
+        "label": "DATE",
+        "start": 112,
+        "end": 126
+      },
+      {
+        "text": "3 March 2023",
+        "label": "DATE",
+        "start": 161,
+        "end": 173
+      },
+      {
+        "text": "SpaceX",
+        "label": "ORG",
+        "start": 179,
+        "end": 185
+      }
+    ]
+  },
+  {
+    "doc_id": 9008,
+    "original_id": "eval-008",
+    "title": "The Science of Sleep and Recovery",
+    "body": "Sleep is crucial for physical and mental recovery. Adults need seven to nine hours of quality sleep each night. Poor sleep can lead to chronic health issues including heart disease and cognitive decline.",
+    "combined_text": "The Science of Sleep and Recovery\n\nSleep is crucial for physical and mental recovery. Adults need seven to nine hours of quality sleep each night. Poor sleep can lead to chronic health issues including heart disease and cognitive decline.",
+    "language": "en",
+    "entities": []
+  },
+  {
+    "doc_id": 9009,
+    "original_id": "eval-009",
+    "title": "Jakarta Governor Anies Baswedan Opens Asian Games 2024",
+    "body": "Governor Anies Baswedan officially opened the Asian Games 2024 in Jakarta on 18 November 2024. The Indonesian Olympic Committee coordinated the ceremony at Gelora Bung Karno Stadium.",
+    "combined_text": "Jakarta Governor Anies Baswedan Opens Asian Games 2024\n\nGovernor Anies Baswedan officially opened the Asian Games 2024 in Jakarta on 18 November 2024. The Indonesian Olympic Committee coordinated the ceremony at Gelora Bung Karno Stadium.",
+    "language": "en",
+    "entities": [
+      {
+        "text": "Jakarta",
+        "label": "GPE",
+        "start": 0,
+        "end": 7
+      },
+      {
+        "text": "Anies Baswedan",
+        "label": "PERSON",
+        "start": 17,
+        "end": 31
+      },
+      {
+        "text": "Asian Games 2024",
+        "label": "EVENT",
+        "start": 38,
+        "end": 54
+      },
+      {
+        "text": "Anies Baswedan",
+        "label": "PERSON",
+        "start": 65,
+        "end": 79
+      },
+      {
+        "text": "Asian Games 2024",
+        "label": "EVENT",
+        "start": 102,
+        "end": 118
+      },
+      {
+        "text": "Jakarta",
+        "label": "GPE",
+        "start": 122,
+        "end": 129
+      },
+      {
+        "text": "18 November 2024",
+        "label": "DATE",
+        "start": 133,
+        "end": 149
+      },
+      {
+        "text": "Indonesian Olympic Committee",
+        "label": "ORG",
+        "start": 155,
+        "end": 183
+      }
+    ]
+  },
+  {
+    "doc_id": 9010,
+    "original_id": "eval-010",
+    "title": "Joko Widodo Meets Xi Jinping at G20 Summit in New Delhi",
+    "body": "Indonesian President Joko Widodo met Chinese President Xi Jinping at the G20 Summit in New Delhi on 9 September 2023. Both leaders discussed maritime cooperation and ASEAN trade policies.",
+    "combined_text": "Joko Widodo Meets Xi Jinping at G20 Summit in New Delhi\n\nIndonesian President Joko Widodo met Chinese President Xi Jinping at the G20 Summit in New Delhi on 9 September 2023. Both leaders discussed maritime cooperation and ASEAN trade policies.",
+    "language": "en",
+    "entities": [
+      {
+        "text": "Joko Widodo",
+        "label": "PERSON",
+        "start": 0,
+        "end": 11
+      },
+      {
+        "text": "Xi Jinping",
+        "label": "PERSON",
+        "start": 18,
+        "end": 28
+      },
+      {
+        "text": "G20 Summit",
+        "label": "EVENT",
+        "start": 32,
+        "end": 42
+      },
+      {
+        "text": "New Delhi",
+        "label": "GPE",
+        "start": 46,
+        "end": 55
+      },
+      {
+        "text": "Joko Widodo",
+        "label": "PERSON",
+        "start": 78,
+        "end": 89
+      },
+      {
+        "text": "Xi Jinping",
+        "label": "PERSON",
+        "start": 112,
+        "end": 122
+      },
+      {
+        "text": "G20 Summit",
+        "label": "EVENT",
+        "start": 130,
+        "end": 140
+      },
+      {
+        "text": "New Delhi",
+        "label": "GPE",
+        "start": 144,
+        "end": 153
+      },
+      {
+        "text": "9 September 2023",
+        "label": "DATE",
+        "start": 157,
+        "end": 173
+      },
+      {
+        "text": "ASEAN",
+        "label": "ORG",
+        "start": 223,
+        "end": 228
+      }
+    ]
+  },
+  {
+    "doc_id": 9011,
+    "original_id": "eval-011",
+    "title": "WHO Declares End of COVID-19 Emergency",
+    "body": "The World Health Organization declared the end of the COVID-19 public health emergency on 5 May 2023 in Geneva.",
+    "combined_text": "WHO Declares End of COVID-19 Emergency\n\nThe World Health Organization declared the end of the COVID-19 public health emergency on 5 May 2023 in Geneva.",
+    "language": "en",
+    "entities": [
+      {
+        "text": "WHO",
+        "label": "ORG",
+        "start": 0,
+        "end": 3
+      },
+      {
+        "text": "World Health Organization",
+        "label": "ORG",
+        "start": 44,
+        "end": 69
+      },
+      {
+        "text": "5 May 2023",
+        "label": "DATE",
+        "start": 130,
+        "end": 140
+      },
+      {
+        "text": "Geneva",
+        "label": "GPE",
+        "start": 144,
+        "end": 150
+      }
+    ]
+  },
+  {
+    "doc_id": 9012,
+    "original_id": "eval-012",
+    "title": "UN and EU Sign Climate Accord in Paris",
+    "body": "The United Nations and the European Union signed a landmark climate accord in Paris on 12 December 2024. Secretary-General Antonio Guterres called it a historic achievement.",
+    "combined_text": "UN and EU Sign Climate Accord in Paris\n\nThe United Nations and the European Union signed a landmark climate accord in Paris on 12 December 2024. Secretary-General Antonio Guterres called it a historic achievement.",
+    "language": "en",
+    "entities": [
+      {
+        "text": "UN",
+        "label": "ORG",
+        "start": 0,
+        "end": 2
+      },
+      {
+        "text": "EU",
+        "label": "ORG",
+        "start": 7,
+        "end": 9
+      },
+      {
+        "text": "Paris",
+        "label": "GPE",
+        "start": 33,
+        "end": 38
+      },
+      {
+        "text": "United Nations",
+        "label": "ORG",
+        "start": 44,
+        "end": 58
+      },
+      {
+        "text": "European Union",
+        "label": "ORG",
+        "start": 67,
+        "end": 81
+      },
+      {
+        "text": "Paris",
+        "label": "GPE",
+        "start": 118,
+        "end": 123
+      },
+      {
+        "text": "12 December 2024",
+        "label": "DATE",
+        "start": 127,
+        "end": 143
+      },
+      {
+        "text": "Antonio Guterres",
+        "label": "PERSON",
+        "start": 163,
+        "end": 179
+      }
+    ]
+  }
+]

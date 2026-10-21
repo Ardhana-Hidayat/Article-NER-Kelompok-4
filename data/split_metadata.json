@@ -1,0 +1,11 @@
+{
+  "seed": 42,
+  "total_unique_articles": 741,
+  "train_docs": 518,
+  "val_docs": 111,
+  "test_docs": 112,
+  "train_spans": 33576,
+  "val_spans": 7638,
+  "test_spans": 7093,
+  "total_spans": 48307
+}

@@ -1,0 +1,19 @@
+{
+  "total_rows": 1291,
+  "unique_original_ids": 846,
+  "duplicate_by_id": 445,
+  "title_null": 0,
+  "title_empty": 0,
+  "body_null": 0,
+  "body_empty": 0,
+  "language_distribution": {
+    "'en": 1059,
+    "'ms": 178,
+    "'zh": 37,
+    "'id": 15,
+    "'vi": 1,
+    "'es": 1
+  },
+  "entities_null": 1291,
+  "entities_notnull": 0
+}
