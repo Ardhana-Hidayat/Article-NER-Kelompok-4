@@ -9,8 +9,9 @@ Layanan ekstraksi entitas bernama (`PERSON`, `ORG`, `GPE`, `DATE`, `EVENT`) dari
 ```mermaid
 flowchart TD
     subgraph Pipeline ["Data & Training Pipeline"]
-        CSV["Dataset CSV<br/>(sample/)"] --> Profiler["Profiling & Quality Check<br/>(src/data_profiling.py)"]
-        Profiler --> PreAnnotator["Weak Supervision & Span Alignment<br/>(src/annotation_pipeline.py)"]
+        CSV["Dataset CSV<br/>(dataset/)"] --> Profiler["Profiling & Quality Check<br/>(src/data_profiling.py)"]
+        Profiler --> Deduplicator["Multi-Stage Deduplication<br/>(src/deduplication.py)"]
+        Deduplicator --> PreAnnotator["Weak Supervision & Span Alignment<br/>(src/ner_preannotation.py)"]
         PreAnnotator --> Splitter["Deterministic Split 70/15/15<br/>Train: 518, Val: 111, Test: 112"]
         Splitter --> Trainer["spaCy NER Training & Early Stopping<br/>(src/train_ner.py)"]
         Trainer --> BestModel["Model Checkpoint<br/>(models/ner_finetuned/)"]
@@ -36,17 +37,20 @@ flowchart TD
 # 1. Profiling Dataset
 python src/data_profiling.py
 
-# 2. Pipeline Anotasi & Data Splitting (70/15/15)
-python src/annotation_pipeline.py
+# 2. Multi-Stage Deduplication (original_id & Hash Konten)
+python src/deduplication.py
 
-# 3. Pelatihan Model & Evaluasi
+# 3. Pipeline Pre-Anotasi & Data Splitting (70/15/15)
+python src/ner_preannotation.py
+
+# 4. Pelatihan Model & Evaluasi
 python src/train_ner.py
 
-# 4. Menjalankan Automated Tests (22 skenario)
+# 5. Menjalankan Automated Tests (22 skenario)
 python tests/test_api.py
 # atau: python -m pytest tests/test_api.py -v
 
-# 5. Menjalankan Aplikasi Web & REST API
+# 6. Menjalankan Aplikasi Web & REST API
 python src/app.py
 ```
 Akses di browser:
@@ -157,7 +161,7 @@ Pipeline memvalidasi input, menggabungkan `title + "\n\n" + body`, dan melakukan
 4. Teks berita yang panjang dan mengandung *boilerplate disclaimer*.
 
 ### Q3: Desain evaluation set dan model baseline?
-Evaluation set dikurasi dalam [`data/evaluation_examples.json`](file:///d:/TUGAS%20SEMESTER%205/DATA%20SCIENCE/UTS-Article-Named-Entity-Recognition-Service/data/evaluation_examples.json) mencakup variasi label, entitas berulang, tanda baca, artikel kontrol kosong, dan kasus hukum yang menantang. Baseline menggunakan model pretrained standar `en_core_web_sm` yang diukur dengan skema *exact-span matching*.
+Evaluation set dikurasi dalam [`data/evaluation_examples.json`](data/evaluation_examples.json) mencakup variasi label, entitas berulang, tanda baca, artikel kontrol kosong, dan kasus hukum yang menantang. Baseline menggunakan model pretrained standar `en_core_web_sm` yang diukur dengan skema *exact-span matching*.
 
 ### Q4: Mode kegagalan utama dan rencana perbaikannya?
 Kegagalan utama terjadi pada batas span yang sangat panjang dan recall rendah pada kelas langka (`EVENT`). Mitigasi jangka panjang: menggunakan model transformer *DeBERTa/FinBERT* domain keuangan, integrasi rule-based `EntityRuler` untuk format hukum, dan augmentasi data pada entitas langka.
@@ -194,32 +198,32 @@ Kegagalan utama terjadi pada batas span yang sangat panjang dan recall rendah pa
 
 ### Struktur Direktori:
 ```
-UTS-Article-Named-Entity-Recognition-Service/
+Article-NER-Kelompok-4/
 ├── .gitignore                          # Filter file cache & dataset CSV mentah
 ├── README.md                           # Dokumentasi ringkas & to-the-point
+├── TRAIN_NER_EXPLANATION.md            # Penjelasan teknis arsitektur & pelatihan NER
 ├── requirements.txt                    # Dependensi ter-pin
-├── CONTEXT.md                          # Dokumen spesifikasi asli studi kasus
 ├── data/
-│   ├── profiling_results.json          # Ringkasan data profiling
-│   ├── split_metadata.json             # Metadata split 70/15/15
-│   ├── evaluation_examples.json        # 10+ contoh uji terkurasi
-│   ├── evaluation_results.json         # Hasil evaluasi val & test
+│   ├── annotations_test.jsonl          # Anotasi test (15%)
 │   ├── annotations_train.jsonl         # Anotasi train (70%)
 │   ├── annotations_val.jsonl           # Anotasi val (15%)
-│   └── annotations_test.jsonl          # Anotasi test (15%)
+│   ├── deduplicated_articles.csv       # Dataset hasil deduplikasi
+│   ├── deduplication_stats.json        # Statistik hasil deduplikasi
+│   ├── evaluation_examples.json        # 12 contoh uji terkurasi
+│   ├── evaluation_results.json         # Hasil evaluasi val & test
+│   ├── profiling_results.json          # Ringkasan data profiling
+│   └── split_metadata.json             # Metadata split 70/15/15
+├── dataset/                            # Dataset CSV mentah (diabaikan git)
 ├── models/
 │   └── ner_finetuned/                  # Artefak model spaCy hasil latih
-├── screenshots/
-│   ├── home_page.png                   # Tangkapan layar formulir web
-│   └── ui_demo.png                     # Tangkapan layar hasil ekstraksi
 ├── src/
-│   ├── __init__.py                     # Package marker
-│   ├── data_profiling.py               # Profiling dataset (69 baris)
-│   ├── annotation_pipeline.py          # Anotasi & data splitting (121 baris)
-│   ├── train_ner.py                    # Training & evaluasi model (150 baris)
 │   ├── app.py                          # REST API & Web Server (80 baris)
-│   └── templates/
-│       └── index.html                  # Antarmuka web light theme
+│   ├── data_profiling.py               # Profiling dataset (72 baris)
+│   ├── deduplication.py                # Multi-stage deduplication (117 baris)
+│   ├── ner_preannotation.py            # Pre-anotasi spaCy & data splitting (194 baris)
+│   ├── train_ner.py                    # Training & evaluasi model (150 baris)
+│   └── template/
+│       └── index.html                  # Antarmuka web light theme (627 baris)
 └── tests/
     └── test_api.py                     # 22 automated tests (pytest)
 ```
