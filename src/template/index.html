@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Article Named Entity Recognition (NER) Service - Ekstraksi entitas bernama dari artikel berita">
+    <title>Article NER Service</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-page: #f8fafc;
+            --bg-surface: #ffffff;
+            --bg-subtle: #f1f5f9;
+            --border: #e2e8f0;
+            --border-hover: #cbd5e1;
+            --border-focus: #2563eb;
+            --text-main: #0f172a;
+            --text-muted: #475569;
+            --text-subtle: #94a3b8;
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --primary-light: #eff6ff;
+            --danger-bg: #fef2f2;
+            --danger-border: #fecaca;
+            --danger-text: #991b1b;
+            
+            /* Entity Soft Palette for Light Theme */
+            --ent-person-bg: #fdf2f8;
+            --ent-person-text: #9d174d;
+            --ent-person-border: #fbcfe8;
+            
+            --ent-org-bg: #eff6ff;
+            --ent-org-text: #1e40af;
+            --ent-org-border: #bfdbfe;
+            
+            --ent-gpe-bg: #ecfdf5;
+            --ent-gpe-text: #065f46;
+            --ent-gpe-border: #a7f3d0;
+            
+            --ent-date-bg: #fffbeb;
+            --ent-date-text: #92400e;
+            --ent-date-border: #fde68a;
+            
+            --ent-event-bg: #f5f3ff;
+            --ent-event-text: #5b21b6;
+            --ent-event-border: #ddd6fe;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg-page);
+            color: var(--text-main);
+            line-height: 1.5;
+            padding: 2.5rem 1rem;
+        }
+
+        .container {
+            max-width: 860px;
+            margin: 0 auto;
+        }
+
+        /* Top Header */
+        header {
+            margin-bottom: 2rem;
+            padding-bottom: 1.25rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .header-title h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-main);
+            letter-spacing: -0.02em;
+        }
+
+        .header-title p {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            margin-top: 0.25rem;
+        }
+
+        .header-tag {
+            font-size: 0.75rem;
+            font-weight: 500;
+            padding: 0.25rem 0.625rem;
+            background: var(--bg-subtle);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            color: var(--text-muted);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* Card Container */
+        .card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+        }
+
+        .card-header {
+            padding: 1rem 1.25rem;
+            background: #ffffff;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .card-title {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .btn-link {
+            background: none;
+            border: none;
+            color: var(--primary);
+            font-size: 0.8125rem;
+            font-weight: 500;
+            cursor: pointer;
+            padding: 0;
+        }
+
+        .btn-link:hover {
+            text-decoration: underline;
+        }
+
+        .card-body {
+            padding: 1.25rem;
+        }
+
+        /* Form Controls */
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        label {
+            display: block;
+            font-size: 0.8125rem;
+            font-weight: 600;
+            color: var(--text-main);
+            margin-bottom: 0.375rem;
+        }
+
+        input[type="text"], textarea {
+            width: 100%;
+            padding: 0.625rem 0.75rem;
+            font-family: inherit;
+            font-size: 0.875rem;
+            color: var(--text-main);
+            background: #ffffff;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            transition: border-color 0.15s ease, box-shadow 0.15s ease;
+            outline: none;
+        }
+
+        input[type="text"]:focus, textarea:focus {
+            border-color: var(--border-focus);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+        }
+
+        input[type="text"]::placeholder, textarea::placeholder {
+            color: var(--text-subtle);
+        }
+
+        textarea {
+            min-height: 140px;
+            resize: vertical;
+            line-height: 1.6;
+        }
+
+        .form-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 0.375rem;
+            font-size: 0.75rem;
+            color: var(--text-subtle);
+        }
+
+        .field-error {
+            color: var(--danger-text);
+            font-weight: 500;
+            display: none;
+        }
+
+        .field-error.show {
+            display: inline;
+        }
+
+        /* Button */
+        .btn-submit {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.625rem 1.25rem;
+            background: var(--primary);
+            color: #ffffff;
+            border: 1px solid transparent;
+            border-radius: 6px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.15s ease;
+            gap: 0.5rem;
+        }
+
+        .btn-submit:hover:not(:disabled) {
+            background: var(--primary-hover);
+        }
+
+        .btn-submit:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        /* Alert / Error Box */
+        .alert-error {
+            background: var(--danger-bg);
+            border: 1px solid var(--danger-border);
+            color: var(--danger-text);
+            padding: 0.875rem 1rem;
+            border-radius: 6px;
+            font-size: 0.8125rem;
+            margin-bottom: 1.5rem;
+            display: none;
+        }
+
+        .alert-error.show {
+            display: block;
+        }
+
+        /* Metrics Bar */
+        .metrics-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 1.25rem;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.375rem;
+            padding: 0.25rem 0.625rem;
+            font-size: 0.75rem;
+            font-weight: 500;
+            border-radius: 4px;
+            border: 1px solid var(--border);
+            background: var(--bg-subtle);
+            color: var(--text-muted);
+        }
+
+        .badge-count {
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        /* Entity Badges */
+        .badge-PERSON { background: var(--ent-person-bg); color: var(--ent-person-text); border-color: var(--ent-person-border); }
+        .badge-ORG { background: var(--ent-org-bg); color: var(--ent-org-text); border-color: var(--ent-org-border); }
+        .badge-GPE { background: var(--ent-gpe-bg); color: var(--ent-gpe-text); border-color: var(--ent-gpe-border); }
+        .badge-DATE { background: var(--ent-date-bg); color: var(--ent-date-text); border-color: var(--ent-date-border); }
+        .badge-EVENT { background: var(--ent-event-bg); color: var(--ent-event-text); border-color: var(--ent-event-border); }
+
+        /* Table */
+        .table-container {
+            overflow-x: auto;
+            margin-bottom: 1.5rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.8125rem;
+            text-align: left;
+        }
+
+        th {
+            background: var(--bg-subtle);
+            padding: 0.5rem 0.75rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            text-transform: uppercase;
+            font-size: 0.6875rem;
+            letter-spacing: 0.04em;
+        }
+
+        td {
+            padding: 0.625rem 0.75rem;
+            border-bottom: 1px solid var(--border);
+            vertical-align: middle;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        .td-entity {
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .td-offset {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--text-subtle);
+            font-size: 0.75rem;
+        }
+
+        /* Highlighted Text Container */
+        .highlight-container {
+            background: #ffffff;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 1rem;
+            line-height: 1.8;
+            font-size: 0.875rem;
+            white-space: pre-wrap;
+            word-break: break-word;
+            max-height: 350px;
+            overflow-y: auto;
+        }
+
+        .mark-ent {
+            border-radius: 3px;
+            padding: 0.125rem 0.25rem;
+            margin: 0 1px;
+            border-bottom-width: 2px;
+            border-bottom-style: solid;
+        }
+
+        .mark-PERSON { background: var(--ent-person-bg); border-color: var(--ent-person-text); color: var(--ent-person-text); }
+        .mark-ORG { background: var(--ent-org-bg); border-color: var(--ent-org-text); color: var(--ent-org-text); }
+        .mark-GPE { background: var(--ent-gpe-bg); border-color: var(--ent-gpe-text); color: var(--ent-gpe-text); }
+        .mark-DATE { background: var(--ent-date-bg); border-color: var(--ent-date-text); color: var(--ent-date-text); }
+        .mark-EVENT { background: var(--ent-event-bg); border-color: var(--ent-event-text); color: var(--ent-event-text); }
+
+        .empty-state {
+            padding: 2.5rem 1rem;
+            text-align: center;
+            color: var(--text-subtle);
+            font-size: 0.875rem;
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 3rem;
+            text-align: center;
+            font-size: 0.75rem;
+            color: var(--text-subtle);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <div class="header-title">
+                <h1>Article NER Service</h1>
+                <p>Ekstraksi entitas bernama dari judul dan isi artikel berita</p>
+            </div>
+        </header>
+
+        <!-- Form Input -->
+        <div class="card">
+            <div class="card-header">
+                <span class="card-title">Input Artikel</span>
+                <button type="button" class="btn-link" id="load-sample-btn">Muat Contoh Teks</button>
+            </div>
+            <div class="card-body">
+                <form id="ner-form">
+                    <div class="form-group">
+                        <label for="title-input">Judul Artikel</label>
+                        <input type="text" id="title-input" placeholder="Masukkan judul artikel..." maxlength="500" required>
+                        <div class="form-meta">
+                            <span class="field-error" id="title-error">Judul wajib diisi</span>
+                            <span id="title-counter">0 / 500</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="body-input">Isi Artikel</label>
+                        <textarea id="body-input" placeholder="Tempel atau ketik teks artikel di sini..." required></textarea>
+                        <div class="form-meta">
+                            <span class="field-error" id="body-error">Isi artikel wajib diisi</span>
+                            <span id="body-counter">0 / 50.000 karakter</span>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-submit" id="submit-btn">
+                        <span>Ekstrak Entitas</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Error Message -->
+        <div class="alert-error" id="error-box"></div>
+
+        <!-- Result Container -->
+        <div class="card" id="results-card" style="display: none;">
+            <div class="card-header">
+                <span class="card-title">Hasil Ekstraksi Entitas</span>
+                <span class="badge" id="model-badge">Model: spacy-ner-finetuned</span>
+            </div>
+            <div class="card-body">
+                <!-- Summary Chips -->
+                <div class="metrics-bar" id="metrics-bar"></div>
+
+                <!-- Entity Table -->
+                <div class="table-container" id="table-container"></div>
+
+                <!-- Text Highlight -->
+                <label style="margin-top: 1rem;">Tampilan Teks Beranotasi</label>
+                <div class="highlight-container" id="highlight-view"></div>
+            </div>
+        </div>
+
+        <footer>
+            Article Named-Entity Recognition Service &bull; UTS Data Science
+        </footer>
+    </div>
+
+    <script>
+        const form = document.getElementById('ner-form');
+        const titleInput = document.getElementById('title-input');
+        const bodyInput = document.getElementById('body-input');
+        const submitBtn = document.getElementById('submit-btn');
+        const titleError = document.getElementById('title-error');
+        const bodyError = document.getElementById('body-error');
+        const titleCounter = document.getElementById('title-counter');
+        const bodyCounter = document.getElementById('body-counter');
+        const errorBox = document.getElementById('error-box');
+        const resultsCard = document.getElementById('results-card');
+        const loadSampleBtn = document.getElementById('load-sample-btn');
+
+        const MAX_TOTAL_CHARS = 50000;
+
+        // Counter updater
+        function updateCounters() {
+            titleCounter.textContent = `${titleInput.value.length} / 500`;
+            const total = titleInput.value.trim().length + (bodyInput.value.trim() ? bodyInput.value.trim().length + 2 : 0);
+            bodyCounter.textContent = `${total.toLocaleString('id-ID')} / ${MAX_TOTAL_CHARS.toLocaleString('id-ID')} karakter`;
+            bodyCounter.style.color = total > MAX_TOTAL_CHARS ? 'var(--danger-text)' : 'var(--text-subtle)';
+        }
+
+        titleInput.addEventListener('input', updateCounters);
+        bodyInput.addEventListener('input', updateCounters);
+
+        // Load sample article
+        loadSampleBtn.addEventListener('click', () => {
+            titleInput.value = "Maybank Reports Record Profit in Kuala Lumpur";
+            bodyInput.value = "Maybank CEO Dato Khairussaleh announced on September 15, 2026 that the bank achieved record quarterly earnings. Headquartered in Kuala Lumpur, the financial institution expanded operations across Malaysia and Singapore, outperforming CIMB Group and Public Bank.";
+            updateCounters();
+            titleError.classList.remove('show');
+            bodyError.classList.remove('show');
+        });
+
+        // Validation
+        function validate() {
+            let valid = true;
+            if (!titleInput.value.trim()) {
+                titleError.classList.add('show');
+                valid = false;
+            } else {
+                titleError.classList.remove('show');
+            }
+
+            if (!bodyInput.value.trim()) {
+                bodyError.classList.add('show');
+                valid = false;
+            } else {
+                bodyError.classList.remove('show');
+            }
+
+            const total = titleInput.value.trim().length + 2 + bodyInput.value.trim().length;
+            if (total > MAX_TOTAL_CHARS) {
+                bodyError.textContent = `Batas maksimum terlampaui (${total} > ${MAX_TOTAL_CHARS})`;
+                bodyError.classList.add('show');
+                valid = false;
+            }
+
+            return valid;
+        }
+
+        // Form Submission
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            errorBox.classList.remove('show');
+
+            if (!validate()) return;
+
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<span>Memproses...</span>';
+
+            try {
+                const res = await fetch('/extract-entities', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        title: titleInput.value.trim(),
+                        body: bodyInput.value.trim()
+                    })
+                });
+
+                const data = await res.json();
+
+                if (!res.ok) {
+                    const msg = data.detail?.message || data.detail?.error || JSON.stringify(data.detail) || 'Terjadi kesalahan sistem.';
+                    throw new Error(msg);
+                }
+
+                renderResults(data);
+            } catch (err) {
+                errorBox.textContent = `Error: ${err.message}`;
+                errorBox.classList.add('show');
+                resultsCard.style.display = 'none';
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<span>Ekstrak Entitas</span>';
+            }
+        });
+
+        function renderResults(data) {
+            const { entities, meta } = data;
+            document.getElementById('model-badge').textContent = `Model: ${meta.model}`;
+
+            // Metrics
+            const metricsBar = document.getElementById('metrics-bar');
+            const counts = {};
+            entities.forEach(ent => { counts[ent.label] = (counts[ent.label] || 0) + 1; });
+
+            metricsBar.innerHTML = `
+                <span class="badge">Total Entitas: <span class="badge-count">${meta.entity_count}</span></span>
+                ${Object.entries(counts).map(([label, count]) => `
+                    <span class="badge badge-${label}">${label}: <span class="badge-count">${count}</span></span>
+                `).join('')}
+            `;
+
+            // Table
+            const tableContainer = document.getElementById('table-container');
+            if (entities.length === 0) {
+                tableContainer.innerHTML = '<div class="empty-state">Tidak ada named entity yang terdeteksi pada teks artikel ini.</div>';
+            } else {
+                tableContainer.innerHTML = `
+                    <table>
+                        <thead>
+                            <tr>
+                                <th style="width: 40px;">#</th>
+                                <th>Teks Entitas</th>
+                                <th>Label</th>
+                                <th>Mulai</th>
+                                <th>Selesai</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${entities.map((e, idx) => `
+                                <tr>
+                                    <td class="td-offset">${idx + 1}</td>
+                                    <td class="td-entity">${escapeHtml(e.text)}</td>
+                                    <td><span class="badge badge-${e.label}">${e.label}</span></td>
+                                    <td class="td-offset">${e.start}</td>
+                                    <td class="td-offset">${e.end}</td>
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    </table>
+                `;
+            }
+
+            // Highlighted text
+            const fullText = titleInput.value.trim() + '\n\n' + bodyInput.value.trim();
+            const highlightView = document.getElementById('highlight-view');
+            highlightView.innerHTML = generateHighlights(fullText, entities);
+
+            resultsCard.style.display = 'block';
+            resultsCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        function generateHighlights(text, entities) {
+            if (!entities.length) return escapeHtml(text);
+            const sorted = [...entities].sort((a, b) => a.start - b.start);
+            let html = '';
+            let cursor = 0;
+
+            sorted.forEach(ent => {
+                if (ent.start >= cursor) {
+                    html += escapeHtml(text.slice(cursor, ent.start));
+                    html += `<span class="mark-ent mark-${ent.label}" title="${ent.label}: ${escapeHtml(ent.text)}">${escapeHtml(text.slice(ent.start, ent.end))}</span>`;
+                    cursor = ent.end;
+                }
+            });
+            html += escapeHtml(text.slice(cursor));
+            return html;
+        }
+
+        function escapeHtml(str) {
+            const div = document.createElement('div');
+            div.textContent = str;
+            return div.innerHTML;
+        }
+    </script>
+</body>
+</html>
