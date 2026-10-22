@@ -8,7 +8,7 @@ import json
 import os
 import pandas as pd
 
-PROJECT_ROOT = Path(__file__).resolve().parents[2]
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
 
 
 def get_data_dir() -> Path:
@@ -18,13 +18,13 @@ def get_data_dir() -> Path:
     for candidate in [
         PROJECT_ROOT / "use_cases" / "pnm_study_case" / "sample",
         PROJECT_ROOT.parent / "use_cases" / "pnm_study_case" / "sample",
-        PROJECT_ROOT / "Dataset",
         PROJECT_ROOT / "dataset",
+        PROJECT_ROOT / "Dataset",
         PROJECT_ROOT / "src" / "dataset",
     ]:
         if candidate.exists() and list(candidate.glob("*.csv")):
             return candidate
-    return PROJECT_ROOT / "Dataset"
+    return PROJECT_ROOT / "dataset"
 
 
 def load_dataset(data_dir: Path) -> pd.DataFrame:
