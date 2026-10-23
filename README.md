@@ -10,8 +10,7 @@ Layanan ekstraksi entitas bernama (`PERSON`, `ORG`, `GPE`, `DATE`, `EVENT`) dari
 flowchart TD
     subgraph Pipeline ["Data & Training Pipeline"]
         CSV["Dataset CSV<br/>(dataset/)"] --> Profiler["Profiling & Quality Check<br/>(src/data_profiling.py)"]
-        Profiler --> Deduplicator["Multi-Stage Deduplication<br/>(src/deduplication.py)"]
-        Deduplicator --> PreAnnotator["Weak Supervision & Span Alignment<br/>(src/ner_preannotation.py)"]
+        Profiler --> PreAnnotator["Weak Supervision & Span Alignment<br/>(src/ner_preannotation.py)"]
         PreAnnotator --> Splitter["Deterministic Split 70/15/15<br/>Train: 518, Val: 111, Test: 112"]
         Splitter --> Trainer["spaCy NER Training & Early Stopping<br/>(src/train_ner.py)"]
         Trainer --> BestModel["Model Checkpoint<br/>(models/ner_finetuned/)"]
@@ -37,20 +36,17 @@ flowchart TD
 # 1. Profiling Dataset
 python src/data_profiling.py
 
-# 2. Multi-Stage Deduplication (original_id & Hash Konten)
-python src/deduplication.py
-
-# 3. Pipeline Pre-Anotasi & Data Splitting (70/15/15)
+# 2. Pipeline Pre-Anotasi & Data Splitting (70/15/15)
 python src/ner_preannotation.py
 
-# 4. Pelatihan Model & Evaluasi
+# 3. Pelatihan Model & Evaluasi
 python src/train_ner.py
 
-# 5. Menjalankan Automated Tests (22 skenario)
+# 4. Menjalankan Automated Tests (22 skenario)
 python tests/test_api.py
 # atau: python -m pytest tests/test_api.py -v
 
-# 6. Menjalankan Aplikasi Web & REST API
+# 5. Menjalankan Aplikasi Web & REST API
 python src/app.py
 ```
 Akses di browser:
@@ -107,7 +103,7 @@ Sesuai aturan repositori (*.gitignore*), file CSV mentah tidak di-commit ke Git.
 ## 5. Ringkasan Dataset & Hasil Evaluasi
 
 ### Dataset Profiling:
-- **Total Baris**: 1.291 baris | **Artikel Unik**: 846 (setelah deduplikasi ketat teks: 741 artikel).
+- **Total Baris**: 1.291 baris | **Artikel Unik**: 846.
 - **Missing Values**: `title` = 0, `body` = 0 (100% lengkap).
 - **Distribusi Bahasa**: English (82.0%), Malay (13.8%), Chinese (2.9%), Indonesian (1.2%).
 
@@ -207,8 +203,6 @@ Article-NER-Kelompok-4/
 │   ├── annotations_test.jsonl          # Anotasi test (15%)
 │   ├── annotations_train.jsonl         # Anotasi train (70%)
 │   ├── annotations_val.jsonl           # Anotasi val (15%)
-│   ├── deduplicated_articles.csv       # Dataset hasil deduplikasi
-│   ├── deduplication_stats.json        # Statistik hasil deduplikasi
 │   ├── evaluation_examples.json        # 12 contoh uji terkurasi
 │   ├── evaluation_results.json         # Hasil evaluasi val & test
 │   ├── profiling_results.json          # Ringkasan data profiling
@@ -219,7 +213,6 @@ Article-NER-Kelompok-4/
 ├── src/
 │   ├── app.py                          # REST API & Web Server (80 baris)
 │   ├── data_profiling.py               # Profiling dataset (72 baris)
-│   ├── deduplication.py                # Multi-stage deduplication (117 baris)
 │   ├── ner_preannotation.py            # Pre-anotasi spaCy & data splitting (194 baris)
 │   ├── train_ner.py                    # Training & evaluasi model (150 baris)
 │   └── template/
