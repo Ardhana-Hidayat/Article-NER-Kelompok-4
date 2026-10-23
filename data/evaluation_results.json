@@ -1,0 +1,165 @@
+{
+  "seed": 42,
+  "matching_scheme": "exact-span matching",
+  "training_meta": {
+    "duration": 927.4,
+    "best_epoch": 29,
+    "val_f1": 0.7064
+  },
+  "baseline": {
+    "validation": {
+      "PERSON": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 2565
+      },
+      "ORG": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 2582
+      },
+      "GPE": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 1331
+      },
+      "DATE": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 1139
+      },
+      "EVENT": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 19
+      },
+      "OVERALL": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 7636
+      }
+    },
+    "test": {
+      "PERSON": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 1788
+      },
+      "ORG": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 2671
+      },
+      "GPE": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 1271
+      },
+      "DATE": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 1331
+      },
+      "EVENT": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 32
+      },
+      "OVERALL": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 7093
+      }
+    }
+  },
+  "trained": {
+    "validation": {
+      "PERSON": {
+        "precision": 0.6299,
+        "recall": 0.6172,
+        "f1": 0.6235,
+        "support": 2565
+      },
+      "ORG": {
+        "precision": 0.6651,
+        "recall": 0.72,
+        "f1": 0.6915,
+        "support": 2582
+      },
+      "GPE": {
+        "precision": 0.7748,
+        "recall": 0.7934,
+        "f1": 0.784,
+        "support": 1331
+      },
+      "DATE": {
+        "precision": 0.8594,
+        "recall": 0.8262,
+        "f1": 0.8424,
+        "support": 1139
+      },
+      "EVENT": {
+        "precision": 0.4167,
+        "recall": 0.2632,
+        "f1": 0.3226,
+        "support": 19
+      },
+      "OVERALL": {
+        "precision": 0.6999,
+        "recall": 0.7129,
+        "f1": 0.7064,
+        "support": 7636
+      }
+    },
+    "test": {
+      "PERSON": {
+        "precision": 0.5943,
+        "recall": 0.5867,
+        "f1": 0.5905,
+        "support": 1788
+      },
+      "ORG": {
+        "precision": 0.7244,
+        "recall": 0.7735,
+        "f1": 0.7481,
+        "support": 2671
+      },
+      "GPE": {
+        "precision": 0.8057,
+        "recall": 0.8025,
+        "f1": 0.8041,
+        "support": 1271
+      },
+      "DATE": {
+        "precision": 0.886,
+        "recall": 0.8873,
+        "f1": 0.8866,
+        "support": 1331
+      },
+      "EVENT": {
+        "precision": 0.64,
+        "recall": 0.5,
+        "f1": 0.5614,
+        "support": 32
+      },
+      "OVERALL": {
+        "precision": 0.7364,
+        "recall": 0.7517,
+        "f1": 0.744,
+        "support": 7093
+      }
+    }
+  }
+}
