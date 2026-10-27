@@ -197,7 +197,6 @@ Kegagalan utama terjadi pada batas span yang sangat panjang dan recall rendah pa
 Article-NER-Kelompok-4/
 ├── .gitignore                          # Filter file cache & dataset CSV mentah
 ├── README.md                           # Dokumentasi ringkas & to-the-point
-├── TRAIN_NER_EXPLANATION.md            # Penjelasan teknis arsitektur & pelatihan NER
 ├── requirements.txt                    # Dependensi ter-pin
 ├── data/
 │   ├── annotations_test.jsonl          # Anotasi test (15%)
